@@ -65,15 +65,16 @@
             const wireModel = `projects/${folder}/model_wire.glb`;
             viewer.src = mainModel;
 
-            // SMART SCANNER: Tries to find any .jpg or .png image by common names
-            const names = ['render', 'shot', 'view', '1', '2', '3'];
+            // SMART SCANNER: Tries to find any image by common names (render, uv, shot, etc.)
+            const names = ['render', 'uv', 'shot', 'view', '1', '2'];
             const exts = ['jpg', 'png', 'jpeg', 'JPG', 'PNG'];
 
             names.forEach(name => {
                 exts.forEach(ext => {
                     for(let i=1; i<=5; i++) {
                         const img = new Image();
-                        const path = `projects/${folder}/${name}${i === 1 && isNaN(name) ? '' : i}.${ext}`;
+                        // Tries names like render1.jpg, 1.jpg, uv1.jpg
+                        const path = `projects/${folder}/${name}${i}.${ext}`;
                         img.src = path;
                         img.onload = () => {
                             if (!document.querySelector(`img[src="${path}"]`)) {
