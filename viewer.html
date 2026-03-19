@@ -3,99 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Showcase | Kishan Sharma</title>
+    <title>Project Detail | Kishan Sharma</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { margin: 0; background: #000; overflow: hidden; font-family: -apple-system, sans-serif; color: white; }
-        model-viewer { width: 100vw; height: 100vh; background-color: #0d0d0d; }
-
-        .back-nav { 
-            position: fixed; top: 20px; left: 20px; z-index: 100; 
-            padding: 12px 24px; background: rgba(255,255,255,0.1); 
-            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2);
-            color: white; border-radius: 12px; cursor: pointer; font-weight: bold;
-            text-decoration: none; display: inline-block;
+        :root { --bg: #0a0a0a; --glass: rgba(255,255,255,0.03); }
+        
+        body { 
+            margin: 0; background: var(--bg); color: white; 
+            font-family: -apple-system, sans-serif; overflow-x: hidden; 
         }
 
-        .control-panel {
-            position: fixed; top: 20px; right: 20px; z-index: 100;
-            display: flex; flex-direction: column; gap: 10px;
+        /* Nav Bar */
+        .nav-header {
+            position: sticky; top: 0; z-index: 100;
+            padding: 15px 5%; background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center;
         }
+        .back-btn { color: #888; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .back-btn:hover { color: #fff; }
 
-        .tech-btn {
-            padding: 12px 20px; background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
-            color: white; border-radius: 12px; cursor: pointer; font-weight: bold;
-            transition: 0.3s; min-width: 140px;
-        }
-        .tech-btn:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
-        .tech-btn.active { background: #fff; color: #000; border-color: #fff; }
+        /* Content Stack */
+        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
+        
+        .media-item { width: 100%; margin-bottom: 10px; background: #111; display: block; }
+        img, video { width: 100%; display: block; border-radius: 4px; }
 
-        #uvModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); z-index: 200; overflow-y: auto;
+        /* 3D Section */
+        .viewer-section { 
+            height: 80vh; margin-top: 40px; border-top: 1px solid #222;
+            position: relative; background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
         }
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px; padding: 100px 40px 40px; max-width: 1200px; margin: 0 auto;
+        model-viewer { width: 100%; height: 100%; }
+
+        .section-label { 
+            text-align: center; padding: 40px 0 20px; 
+            color: #555; text-transform: uppercase; letter-spacing: 2px; font-size: 12px;
         }
-        .uv-item { background: #111; padding: 10px; border-radius: 10px; text-align: center; }
-        .uv-item img { width: 100%; border-radius: 5px; }
-        .close-uv { position: fixed; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; z-index: 210; }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="back-nav">← Exit</a>
+    <nav class="nav-header">
+        <a href="index.html" class="back-btn">← BACK TO PORTFOLIO</a>
+        <div id="project-title" style="font-weight: bold; letter-spacing: 1px;">PROJECT VIEW</div>
+    </nav>
 
-    <div class="control-panel">
-        <button class="tech-btn" id="uvBtn">UV GALLERY</button>
-        <button class="tech-btn" id="wireBtn">WIREFRAME</button>
+    <div class="content-stack" id="mediaStack">
+        </div>
+
+    <div class="section-label">Interactive 3D Preview</div>
+    <div class="viewer-section">
+        <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral"></model-viewer>
     </div>
-
-    <div id="uvModal">
-        <span class="close-uv" id="closeUv">&times;</span>
-        <div class="gallery-grid" id="galleryGrid"></div>
-    </div>
-
-    <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" exposure="1" environment-image="neutral"></model-viewer>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const folder = urlParams.get('folder');
+        const stack = document.getElementById("mediaStack");
         const viewer = document.querySelector("#mv");
 
         if (folder) {
-            // Corrected paths: folder already contains 'project1' or 'project2'
-            const mainModel = `projects/${folder}/model.glb`;
-            const wireModel = `projects/${folder}/model_wire.glb`;
+            document.getElementById("project-title").innerText = folder.toUpperCase();
             
-            viewer.src = mainModel;
-            
-            const grid = document.getElementById("galleryGrid");
-            for(let i=1; i<=25; i++) {
+            // 1. Load Main Model
+            viewer.src = `projects/${folder}/model.glb`;
+
+            // 2. Load High-Res Images (Checks for 5 images)
+            for(let i=1; i<=5; i++) {
                 const img = new Image();
-                img.src = `projects/${folder}/uv${i}.jpg`;
+                img.src = `projects/${folder}/render${i}.jpg`; 
                 img.onload = () => {
                     const div = document.createElement('div');
-                    div.className = 'uv-item';
-                    div.innerHTML = `<img src="${img.src}"><p style="font-size:10px; color:#555; margin-top:5px;">SET ${i}</p>`;
-                    grid.appendChild(div);
+                    div.className = 'media-item';
+                    div.innerHTML = `<img src="${img.src}">`;
+                    stack.appendChild(div);
                 };
             }
 
-            // Wireframe logic
-            let isWireActive = false;
-            document.getElementById("wireBtn").onclick = function() {
-                isWireActive = !isWireActive;
-                this.classList.toggle('active');
-                viewer.src = isWireActive ? wireModel : mainModel;
-                this.innerText = isWireActive ? "VIEW TEXTURED" : "WIREFRAME";
+            // 3. Try to load a video if it exists
+            const video = document.createElement('video');
+            video.src = `projects/${folder}/video.mp4`;
+            video.autoplay = true; video.muted = true; video.loop = true; video.playsinline = true;
+            video.oncanplay = () => {
+                const div = document.createElement('div');
+                div.className = 'media-item';
+                div.appendChild(video);
+                stack.prepend(div); // Put video at the top
             };
         }
-
-        document.getElementById("uvBtn").onclick = () => document.getElementById("uvModal").style.display = "block";
-        document.getElementById("closeUv").onclick = () => document.getElementById("uvModal").style.display = "none";
     </script>
 </body>
 </html>
