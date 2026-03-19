@@ -6,42 +6,32 @@
     <title>Case Study | Kishan Sharma</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { margin: 0; background: #050505; color: white; font-family: -apple-system, sans-serif; }
-        
+        body { margin: 0; background: #050505; color: white; font-family: -apple-system, sans-serif; overflow-y: auto; }
         .nav-header {
             position: sticky; top: 0; z-index: 100; padding: 15px 20px;
-            background: rgba(5,5,5,0.85); backdrop-filter: blur(20px);
+            background: rgba(5,5,5,0.9); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex; justify-content: space-between; align-items: center;
         }
         .back-btn { color: #888; text-decoration: none; font-size: 14px; font-weight: bold; }
-
-        /* ArtStation Layout */
-        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; padding-top: 5px; }
-        .media-item { width: 100%; margin-bottom: 8px; background: #000; }
-        img, video { width: 100%; height: auto; display: block; }
-
-        /* 3D Viewer Section */
-        .viewer-section { 
-            height: 85vh; width: 100%; margin-top: 40px;
-            border-top: 1px solid #222; background: #000;
-        }
+        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; }
+        .media-item { width: 100%; margin-bottom: 10px; }
+        img { width: 100%; height: auto; display: block; }
+        .viewer-section { height: 80vh; width: 100%; border-top: 1px solid #222; background: #000; }
         model-viewer { width: 100%; height: 100%; }
-        .label { text-align: center; padding: 50px 0 20px; color: #444; text-transform: uppercase; letter-spacing: 3px; font-size: 12px; }
     </style>
 </head>
 <body>
-
     <nav class="nav-header">
-        <a href="index.html" class="back-btn">← BACK TO GALLERY</a>
-        <div id="projectName" style="font-weight:bold; letter-spacing:1px;">PROJECT VIEW</div>
+        <a href="index.html" class="back-btn">← BACK</a>
+        <div id="pName" style="font-weight:bold;">PROJECT</div>
         <div style="width:20px;"></div>
     </nav>
 
     <div class="content-stack" id="mediaStack">
         </div>
 
-    <div class="label">3D Interaction</div>
+    <div style="text-align:center; padding:40px; color:#444;">3D INTERACTIVE MODEL</div>
     <div class="viewer-section">
         <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral" touch-action="pan-y"></model-viewer>
     </div>
@@ -53,22 +43,19 @@
         const viewer = document.querySelector("#mv");
 
         if (folder) {
-            document.getElementById("projectName").innerText = folder.toUpperCase();
+            document.getElementById("pName").innerText = folder.toUpperCase();
             viewer.src = `projects/${folder}/model.glb`;
 
-            // Try to find up to 10 renders (Checking .jpg and .png)
-            const formats = ['jpg', 'png', 'JPG'];
+            // Look for renders 1-10
             for (let i = 1; i <= 10; i++) {
-                formats.forEach(ext => {
-                    const img = new Image();
-                    img.src = `projects/${folder}/render${i}.${ext}`;
-                    img.onload = function() {
-                        const div = document.createElement('div');
-                        div.className = 'media-item';
-                        div.innerHTML = `<img src="${this.src}">`;
-                        stack.appendChild(div);
-                    };
-                });
+                const img = new Image();
+                img.src = `projects/${folder}/render${i}.jpg`;
+                img.onload = () => {
+                    const div = document.createElement('div');
+                    div.className = 'media-item';
+                    div.innerHTML = `<img src="${img.src}">`;
+                    stack.appendChild(div);
+                };
             }
         }
     </script>
