@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishan Sharma | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-canvas">
+        <header class="hero-section">
+            <div class="liquid-glass-card">
+                <div class="avatar-container">
+                    <img src="projects/profile/profile.png" id="profilePic" class="profile-img" 
+                         onerror="this.onerror=null; this.src='projects/profile/profile.jpg';">
+                </div>
+                <h1 class="name-text">Kishan Sharma</h1>
+                <p class="bio-text">3D Artist & Developer. Transforming complex ideas into interactive digital reality.</p>
+                <div class="contact-footer">
+                    <div class="phone-link">9148804719</div>
+                    <div class="email-link">Kishansharma3k@gmail.com</div>
+                </div>
+            </div>
+        </header>
+
+        <footer class="project-shelf">
+            <div class="shelf-container">
+                <div class="project-card" onclick="openProject('project1')">
+                    <img src="projects/project1/thumb.png" class="card-bg-img" 
+                         onerror="this.onerror=null; this.src='projects/project1/thumb.jpg';">
+                    <div class="card-glass-overlay"></div>
+                    <div class="project-info">
+                        <h3>Project One</h3>
+                        <p>3D Asset / Render</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openProject('project2')">
+                    <img src="projects/project2/thumb.png" class="card-bg-img" 
+                         onerror="this.onerror=null; this.src='projects/project2/thumb.jpg';">
+                    <div class="card-glass-overlay"></div>
+                    <div class="project-info">
+                        <h3>Project Two</h3>
+                        <p>3D Asset / Render</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        function openProject(targetFolder) {
+            window.open(`viewer.html?folder=${targetFolder}`, '_blank');
+        }
+    </script>
+</body>
+</html>
