@@ -89,7 +89,8 @@
 
     <script>
         function openProject(targetFolder) {
-            window.open(`viewer.html?folder=${targetFolder}`, '_blank');
+            // Updated to '_self' to prevent opening in a new tab
+            window.open(`viewer.html?folder=${targetFolder}`, '_self');
         }
     </script>
 </body>
