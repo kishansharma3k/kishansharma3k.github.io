@@ -5,98 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Sharma | Portfolio</title>
     <style>
-        /* Base Styles */
         body { 
             margin: 0; 
             background: #050505; 
             color: white; 
-            font-family: -apple-system, sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
             display: flex; 
             flex-direction: column; 
-            min-height: 100vh; 
+            min-height: 100vh;
+            align-items: center; /* This centers everything like your screenshot */
         }
 
-        /* Nav Header */
+        /* HEADER: Matches your blurred top bar */
         .nav-header {
-            position: sticky; top: 0; z-index: 100; padding: 25px;
-            background: rgba(5,5,5,0.8); backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            text-align: center; font-weight: bold; letter-spacing: 4px;
-            text-transform: uppercase; font-size: 14px;
+            width: 100%;
+            position: sticky; top: 0; z-index: 100; padding: 25px 0;
+            background: rgba(5,5,5,0.7); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            text-align: center; font-weight: bold; letter-spacing: 5px;
+            text-transform: uppercase; font-size: 13px;
         }
 
-        /* RESTORED: Wide Banner Layout from your Screenshot */
-        .main-container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* CONTAINER: Keeps the content centered and the right width */
+        .main-content {
+            width: 90%;
+            max-width: 1000px;
+            margin-top: 50px;
             flex: 1;
         }
 
-        .project-card {
+        /* PROJECT CARD: Restores the HAHA banner look */
+        .project-link {
             display: block;
             text-decoration: none;
-            margin-bottom: 50px;
-            transition: transform 0.3s ease;
+            margin-bottom: 60px;
+            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        .project-card:hover { transform: scale(1.01); }
+        .project-link:hover { transform: scale(1.015); }
 
-        .banner-frame {
+        .banner-box {
             width: 100%;
             background: #111;
-            border-radius: 24px; /* Matches the high rounding in your screenshot */
+            border-radius: 12px; /* Matches the subtle rounding in the screenshot */
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            line-height: 0;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .banner-frame img {
+        .banner-box img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        .project-label {
+        .project-name {
             margin-top: 15px;
-            padding-left: 10px;
-            font-size: 11px;
-            font-weight: bold;
-            color: #666;
+            font-size: 10px;
+            font-weight: 800;
+            color: #555;
             text-transform: uppercase;
             letter-spacing: 2px;
+            padding-left: 5px;
         }
 
-        /* FOOTER */
+        /* FOOTER: Fixed to look like your screenshot bottom */
         .site-footer {
-            padding: 80px 20px;
-            margin-top: 60px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
+            width: 100%;
+            padding: 100px 0 60px;
             background: #000;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.03);
         }
-        .footer-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #fff; }
-        .footer-contact { font-size: 13px; margin-bottom: 30px; }
-        .footer-contact a { color: #555; text-decoration: none; transition: 0.3s; }
-        .footer-contact a:hover { color: #fff; }
 
-        .social-links { display: flex; justify-content: center; gap: 12px; }
-        .social-link {
-            color: #777;
+        .footer-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; color: #fff; }
+        .footer-sub { font-size: 11px; color: #444; margin-bottom: 30px; letter-spacing: 1px; }
+        .footer-sub a { color: inherit; text-decoration: none; }
+
+        .social-row { display: flex; justify-content: center; gap: 12px; }
+        .social-btn {
+            color: #666;
             text-decoration: none;
             font-size: 10px;
             font-weight: bold;
             letter-spacing: 2px;
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 12px 24px;
-            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 12px 25px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.01);
             transition: 0.3s;
-            background: rgba(255,255,255,0.02);
         }
-        .social-link:hover { 
+        .social-btn:hover { 
             color: #fff; 
-            border-color: rgba(255,255,255,0.3); 
-            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2); 
+            background: rgba(255,255,255,0.04);
         }
     </style>
 </head>
@@ -104,24 +107,24 @@
 
     <nav class="nav-header">KISHAN SHARMA</nav>
 
-    <div class="main-container">
-        <a href="viewer.html?folder=project1" class="project-card">
-            <div class="banner-frame">
-                <img src="projects/project1/render1.jpg" onerror="this.src='https://via.placeholder.com/1000x400/111/444?text=Project+Thumbnail'">
+    <div class="main-content">
+        <a href="viewer.html?folder=project1" class="project-link">
+            <div class="banner-box">
+                <img src="projects/project1/render1.jpg" onerror="this.src='https://via.placeholder.com/1000x450/111/333?text=PROJECT+THUMBNAIL'">
             </div>
-            <div class="project-label">PROJECT ONE</div>
+            <div class="project-name">PROJECT ONE</div>
         </a>
     </div>
 
     <footer class="site-footer">
-        <div class="footer-name">Kishan Sharma</div>
-        <div class="footer-contact">
+        <div class="footer-title">Kishan Sharma</div>
+        <div class="footer-sub">
             <a href="mailto:Kishansharma3k@gmail.com">9148804719 • Kishansharma3k@gmail.com</a>
         </div>
-        <div class="social-links">
-            <a href="https://www.artstation.com/kishan_sharma" target="_blank" class="social-link">ARTSTATION</a>
-            <a href="https://www.linkedin.com/in/kishan-sharma-3057072b8/" target="_blank" class="social-link">LINKEDIN</a>
-            <a href="https://www.instagram.com/kishansharma3m" target="_blank" class="social-link">INSTAGRAM</a>
+        <div class="social-row">
+            <a href="https://www.artstation.com/kishan_sharma" target="_blank" class="social-btn">ARTSTATION</a>
+            <a href="https://www.linkedin.com/in/kishan-sharma-3057072b8/" target="_blank" class="social-btn">LINKEDIN</a>
+            <a href="https://www.instagram.com/kishansharma3m" target="_blank" class="social-btn">INSTAGRAM</a>
         </div>
     </footer>
 
