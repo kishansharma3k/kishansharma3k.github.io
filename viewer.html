@@ -7,6 +7,8 @@
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         body { margin: 0; background: #050505; color: white; font-family: -apple-system, sans-serif; overflow-y: auto; }
+        
+        /* Navigation */
         .nav-header {
             position: sticky; top: 0; z-index: 100; padding: 15px 20px;
             background: rgba(5,5,5,0.9); backdrop-filter: blur(20px);
@@ -14,35 +16,40 @@
             display: flex; justify-content: space-between; align-items: center;
         }
         .back-btn { color: #888; text-decoration: none; font-size: 14px; font-weight: bold; }
-        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; }
-        .media-item { width: 100%; margin-bottom: 5px; }
+
+        /* Media Stack */
+        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; }
+        .media-item { width: 100%; background: #000; line-height: 0; }
         img { width: 100%; height: auto; display: block; }
         
+        /* 3D Viewer Section */
         .viewer-section { height: 80vh; width: 100%; border-top: 1px solid #222; background: #000; position: relative; }
         model-viewer { width: 100%; height: 100%; }
 
         .wireframe-toggle {
             position: absolute; top: 20px; right: 20px; z-index: 10;
-            padding: 10px 20px; background: rgba(255,255,255,0.1);
+            padding: 12px 24px; background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2); color: white;
-            border-radius: 8px; cursor: pointer; backdrop-filter: blur(10px);
+            border-radius: 12px; cursor: pointer; backdrop-filter: blur(15px);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+
     <nav class="nav-header">
         <a href="index.html" class="back-btn">← BACK</a>
-        <div id="pTitle" style="font-weight:bold; text-transform:uppercase;">Project View</div>
+        <div id="pTitle" style="font-weight:bold; text-transform:uppercase; letter-spacing:1px;">Project View</div>
         <div style="width:20px;"></div>
     </nav>
 
-    <div class="content-stack" id="mediaStack">
-        </div>
+    <div class="content-stack" id="mediaStack"></div>
 
-    <div style="text-align:center; padding:40px; color:#444; letter-spacing:2px;">3D INTERACTIVE</div>
+    <div style="text-align:center; padding:60px 20px 20px; color:#444; letter-spacing:3px; font-size:12px;">3D INTERACTIVE</div>
+    
     <div class="viewer-section">
         <button class="wireframe-toggle" id="wireBtn">WIREFRAME</button>
-        <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral"></model-viewer>
+        <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral" touch-action="pan-y"></model-viewer>
     </div>
 
     <script>
@@ -54,22 +61,53 @@
 
         if (folder) {
             document.getElementById("pTitle").innerText = folder;
+            
+            // Set 3D Paths
             const mainModel = `projects/${folder}/model.glb`;
             const wireModel = `projects/${folder}/model_wire.glb`;
             viewer.src = mainModel;
 
-            // Load up to 5 renders automatically
-            for (let i = 1; i <= 5; i++) {
-                const img = new Image();
-                img.src = `projects/${folder}/render${i}.jpg`;
-                img.onload = () => {
-                    const div = document.createElement('div');
-                    div.className = 'media-item';
-                    div.innerHTML = `<img src="${img.src}">`;
-                    stack.appendChild(div);
-                };
+            /**
+             * SMART SCANNER
+             * This function tries common naming conventions for 3D artists
+             */
+            const possibleNames = ['render', 'shot', 'view', 'image', 'v', 'cam'];
+            const extensions = ['jpg', 'png', 'jpeg', 'JPG', 'PNG'];
+
+            function scanForImages() {
+                // Check for names like render1, render2... shot1, shot2... 1, 2, 3...
+                for (let i = 1; i <= 10; i++) {
+                    // Try basic numbers (1.jpg, 2.jpg)
+                    checkAndAdd(`projects/${folder}/${i}`);
+                    
+                    // Try named versions (render1.jpg, shot1.jpg)
+                    possibleNames.forEach(name => {
+                        checkAndAdd(`projects/${folder}/${name}${i}`);
+                        checkAndAdd(`projects/${folder}/${name}_${i}`);
+                    });
+                }
             }
 
+            function checkAndAdd(basePath) {
+                extensions.forEach(ext => {
+                    const fullPath = `${basePath}.${ext}`;
+                    const img = new Image();
+                    img.src = fullPath;
+                    img.onload = function() {
+                        // Prevent duplicates if multiple extensions match
+                        if (!document.querySelector(`img[src="${fullPath}"]`)) {
+                            const div = document.createElement('div');
+                            div.className = 'media-item';
+                            div.innerHTML = `<img src="${fullPath}">`;
+                            stack.appendChild(div);
+                        }
+                    };
+                });
+            }
+
+            scanForImages();
+
+            // Wireframe Switch
             let isWire = false;
             wireBtn.onclick = () => {
                 isWire = !isWire;
