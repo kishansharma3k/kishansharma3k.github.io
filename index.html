@@ -6,12 +6,12 @@
     <title>Kishan Sharma | Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Only adding the footer styles here to keep your style.css untouched */
+        /* Footer styling matches your dark premium aesthetic */
         .site-footer {
             padding: 80px 20px;
             text-align: center;
-            background: #000;
-            border-top: 1px solid rgba(255,255,255,0.03);
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             margin-top: 50px;
             font-family: -apple-system, sans-serif;
         }
@@ -25,12 +25,12 @@
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 2px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 12px 25px;
             border-radius: 6px;
             transition: 0.3s;
         }
-        .social-link:hover { color: #fff; border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.02); }
+        .social-link:hover { color: #fff; border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.02); }
     </style>
 </head>
 <body>
@@ -50,7 +50,7 @@
             </div>
         </header>
 
-        <footer class="project-shelf">
+        <section class="project-shelf">
             <div class="shelf-container">
                 <div class="project-card" onclick="openProject('project1')">
                     <img src="projects/project1/thumb.png" class="card-bg-img" 
@@ -72,24 +72,24 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-name">Kishan Sharma</div>
+            <div class="footer-contact">
+                <a href="mailto:Kishansharma3k@gmail.com">9148804719 • Kishansharma3k@gmail.com</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.artstation.com/kishan_sharma" target="_blank" class="social-link">ARTSTATION</a>
+                <a href="https://www.linkedin.com/in/kishan-sharma-3057072b8/" target="_blank" class="social-link">LINKEDIN</a>
+                <a href="https://www.instagram.com/kishansharma3m" target="_blank" class="social-link">INSTAGRAM</a>
+            </div>
         </footer>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-name">Kishan Sharma</div>
-        <div class="footer-contact">
-            <a href="mailto:Kishansharma3k@gmail.com">9148804719 • Kishansharma3k@gmail.com</a>
-        </div>
-        <div class="social-links">
-            <a href="https://www.artstation.com/kishan_sharma" target="_blank" class="social-link">ARTSTATION</a>
-            <a href="https://www.linkedin.com/in/kishan_sharma" target="_blank" class="social-link">LINKEDIN</a>
-            <a href="https://www.instagram.com/kishansharma3m" target="_blank" class="social-link">INSTAGRAM</a>
-        </div>
-    </footer>
-
     <script>
         function openProject(targetFolder) {
-            // Fixed to open in the same tab
+            // Opens in same tab as requested
             window.open(`viewer.html?folder=${targetFolder}`, '_self');
         }
     </script>
