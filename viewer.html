@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Technical Showcase | Kishan Sharma</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         body { margin: 0; background: #000; overflow: hidden; font-family: -apple-system, sans-serif; color: white; }
         model-viewer { width: 100vw; height: 100vh; background-color: #0d0d0d; }
 
-        /* Navigation */
         .back-nav { 
             position: fixed; top: 20px; left: 20px; z-index: 100; 
             padding: 12px 24px; background: rgba(255,255,255,0.1); 
             backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2);
             color: white; border-radius: 12px; cursor: pointer; font-weight: bold;
+            text-decoration: none; display: inline-block;
         }
 
         .control-panel {
@@ -30,7 +31,6 @@
         .tech-btn:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
         .tech-btn.active { background: #fff; color: #000; border-color: #fff; }
 
-        /* UV Modal Layout */
         #uvModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.98); z-index: 200; overflow-y: auto;
@@ -46,7 +46,7 @@
 </head>
 <body>
 
-    <button class="back-nav" onclick="window.close()">← Exit</button>
+    <a href="index.html" class="back-nav">← Exit</a>
 
     <div class="control-panel">
         <button class="tech-btn" id="uvBtn">UV GALLERY</button>
@@ -58,28 +58,20 @@
         <div class="gallery-grid" id="galleryGrid"></div>
     </div>
 
-    <model-viewer 
-        id="mv" 
-        camera-controls 
-        auto-rotate 
-        shadow-intensity="1" 
-        exposure="1" 
-        environment-image="neutral">
-    </model-viewer>
+    <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" exposure="1" environment-image="neutral"></model-viewer>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const folder = urlParams.get('folder');
         const viewer = document.querySelector("#mv");
 
-        // Dynamic Paths
-        const mainModel = `projects/${folder}/model.glb`;
-        const wireModel = `projects/${folder}/model_wire.glb`;
-
         if (folder) {
+            // Corrected paths: folder already contains 'project1' or 'project2'
+            const mainModel = `projects/${folder}/model.glb`;
+            const wireModel = `projects/${folder}/model_wire.glb`;
+            
             viewer.src = mainModel;
             
-            // Build the UV gallery (checking up to 25)
             const grid = document.getElementById("galleryGrid");
             for(let i=1; i<=25; i++) {
                 const img = new Image();
@@ -91,32 +83,19 @@
                     grid.appendChild(div);
                 };
             }
+
+            // Wireframe logic
+            let isWireActive = false;
+            document.getElementById("wireBtn").onclick = function() {
+                isWireActive = !isWireActive;
+                this.classList.toggle('active');
+                viewer.src = isWireActive ? wireModel : mainModel;
+                this.innerText = isWireActive ? "VIEW TEXTURED" : "WIREFRAME";
+            };
         }
 
-        // UV Modal Controls
         document.getElementById("uvBtn").onclick = () => document.getElementById("uvModal").style.display = "block";
         document.getElementById("closeUv").onclick = () => document.getElementById("uvModal").style.display = "none";
-        
-        // WIREFRAME SWAP LOGIC
-        let isWireActive = false;
-        const wireBtn = document.getElementById("wireBtn");
-
-        wireBtn.onclick = function() {
-            isWireActive = !isWireActive;
-            
-            // Toggle visual state of button
-            this.classList.toggle('active');
-
-            if(isWireActive) {
-                // Swap to the wireframe GLB
-                viewer.src = wireModel;
-                this.innerText = "VIEW TEXTURED";
-            } else {
-                // Swap back to the original GLB
-                viewer.src = mainModel;
-                this.innerText = "WIREFRAME";
-            }
-        };
     </script>
 </body>
 </html>
