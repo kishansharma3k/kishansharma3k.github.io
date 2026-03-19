@@ -14,7 +14,8 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex; justify-content: space-between; align-items: center;
         }
-        .back-btn { color: #888; text-decoration: none; font-size: 14px; font-weight: bold; }
+        .back-btn { color: #888; text-decoration: none; font-size: 14px; font-weight: bold; transition: 0.3s; }
+        .back-btn:hover { color: #fff; }
 
         .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; flex: 1; }
         .media-item { width: 100%; background: #000; line-height: 0; margin-bottom: 5px; }
@@ -39,8 +40,9 @@
             font-size: 12px; font-weight: bold;
         }
 
+        /* Footer Styles */
         .site-footer {
-            padding: 60px 20px;
+            padding: 80px 20px;
             margin-top: 80px;
             border-top: 1px solid rgba(255,255,255,0.05);
             text-align: center;
@@ -48,7 +50,27 @@
         }
         .footer-content { max-width: 600px; margin: 0 auto; }
         .footer-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; opacity: 0.9; }
-        .footer-contact { font-size: 13px; color: #666; letter-spacing: 1px; }
+        .footer-contact { font-size: 13px; margin-bottom: 25px; }
+        .footer-contact a { color: #666; text-decoration: none; transition: 0.3s; }
+        .footer-contact a:hover { color: #fff; }
+
+        .social-links { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .social-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 6px;
+        }
+        .social-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.3);
+        }
     </style>
 </head>
 <body>
@@ -72,39 +94,16 @@
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-name">Kishan Sharma</div>
-            
             <div class="footer-contact">
-                <a href="mailto:Kishansharma3k@gmail.com" style="color: #666; text-decoration: none;">
-                    9148804719 • Kishansharma3k@gmail.com
-                </a>
+                <a href="mailto:Kishansharma3k@gmail.com">9148804719 • Kishansharma3k@gmail.com</a>
             </div>
-
-            <div style="margin-top: 25px; display: flex; justify-content: center; gap: 20px;">
+            <div class="social-links">
                 <a href="https://www.artstation.com/kishan_sharma" target="_blank" class="social-link">ARTSTATION</a>
                 <a href="https://www.linkedin.com/in/kishan-sharma-3057072b8/" target="_blank" class="social-link">LINKEDIN</a>
                 <a href="https://www.instagram.com/kishansharma3m" target="_blank" class="social-link">INSTAGRAM</a>
             </div>
         </div>
     </footer>
-
-    <style>
-        .social-link {
-            color: #888;
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 8px 15px;
-            border-radius: 4px;
-        }
-        .social-link:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.3);
-        }
-    </style>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -119,6 +118,7 @@
             const wireModel = `projects/${folder}/model_wire.glb`;
             viewer.src = mainModel;
 
+            // Scans for images named render1, render2, 1, 2, etc.
             const names = ['render', 'uv', 'shot', '1', '2'];
             const exts = ['jpg', 'png', 'JPG', 'PNG'];
 
@@ -133,7 +133,6 @@
                                 const div = document.createElement('div');
                                 div.className = 'media-item';
                                 div.innerHTML = `<img src="${path}">`;
-                                // FIXED: Images now only insert into the dedicated image container
                                 imgStack.appendChild(div);
                             }
                         };
