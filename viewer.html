@@ -72,10 +72,39 @@
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-name">Kishan Sharma</div>
-            <div class="footer-contact">9148804719 • Kishansharma3k@gmail.com</div>
-            <div style="margin-top: 20px; font-size: 11px; color: #333;">© 2026 KISHAN SHARMA</div>
+            
+            <div class="footer-contact">
+                <a href="mailto:Kishansharma3k@gmail.com" style="color: #666; text-decoration: none;">
+                    9148804719 • Kishansharma3k@gmail.com
+                </a>
+            </div>
+
+            <div style="margin-top: 25px; display: flex; justify-content: center; gap: 20px;">
+                <a href="https://www.artstation.com/" target="_blank" class="social-link">ARTSTATION</a>
+                <a href="https://www.linkedin.com/in/" target="_blank" class="social-link">LINKEDIN</a>
+                <a href="https://www.instagram.com/" target="_blank" class="social-link">INSTAGRAM</a>
+            </div>
         </div>
     </footer>
+
+    <style>
+        .social-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+        .social-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.3);
+        }
+    </style>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
