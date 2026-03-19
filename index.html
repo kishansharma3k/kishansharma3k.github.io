@@ -13,38 +13,42 @@
 
         body {
             margin: 0;
-            background: var(--bg);
+            background: #050505;
+            background: radial-gradient(circle at top, #1a1a1a 0%, #050505 100%);
+            background-attachment: fixed;
             color: white;
-            font-family: -apple-system, sans-serif;
+            font-family: -apple-system, system-ui, sans-serif;
             display: flex;
             justify-content: center;
-            padding-top: 80px;
+            padding: 40px 20px;
         }
 
-        .container { width: 90%; max-width: 1100px; }
+        .container { width: 100%; max-width: 1100px; }
+
+        h1 { font-size: 2.5rem; margin-bottom: 40px; letter-spacing: -1px; }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+            /* This makes it 1 column on phone, 2+ on desktop */
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
         .card {
             background: var(--glass);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 20px;
+            padding: 16px;
             text-decoration: none;
             color: white;
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
-
-        .card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.06); }
 
         .img-container {
             width: 100%;
-            height: 200px;
+            aspect-ratio: 16/9;
             background: #111;
             border-radius: 16px;
             margin-bottom: 15px;
@@ -54,7 +58,7 @@
         img, video { width: 100%; height: 100%; object-fit: cover; }
 
         .tag { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-        h2 { margin: 5px 0; font-size: 1.4rem; }
+        h2 { margin: 5px 0; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -64,8 +68,7 @@
 
             <div class="card">
                 <div class="img-container">
-                    <img src="project1/thumb.jpg" alt="Roadmap Tournament" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                    <div style="display:none; padding: 20px; color: #666;">Image not found in project1/thumb.jpg</div>
+                    <img src="project1/thumb.jpg" alt="Project 1">
                 </div>
                 <div class="tag">Image</div>
                 <h2>Roadmap Tournament</h2>
@@ -73,10 +76,10 @@
 
             <div class="card">
                 <div class="img-container">
-                    <div style="padding: 20px; color: #666; text-align: center;">3D Model Placeholder</div>
+                    <video src="project3/demo.mp4" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>
                 </div>
-                <div class="tag">3D Asset</div>
-                <h2>Project 2 Asset</h2>
+                <div class="tag">Video</div>
+                <h2>Project 3 Example</h2>
             </div>
 
         </div>
