@@ -4,74 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Sharma | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* YOUR ORIGINAL STYLES */
-        body { 
-            margin: 0; 
-            background: #050505; 
-            color: white; 
-            font-family: -apple-system, sans-serif; 
-        }
-
-        .nav-header {
-            padding: 40px 20px;
-            text-align: center;
-            font-weight: bold;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .project-card {
-            width: 100%;
-            text-decoration: none;
-            margin-bottom: 40px;
-        }
-
-        .image-container {
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: #111;
-        }
-
-        .image-container img {
-            width: 100%;
-            display: block;
-        }
-
-        .project-meta {
-            margin-top: 15px;
-            font-size: 10px;
-            font-weight: bold;
-            color: #444;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* NEW FOOTER SECTION */
+        /* Footer styling to match your dark aesthetic */
         .site-footer {
-            padding: 100px 20px 60px;
+            padding: 80px 20px;
             text-align: center;
             background: #000;
             border-top: 1px solid rgba(255,255,255,0.03);
             margin-top: 50px;
+            font-family: -apple-system, sans-serif;
         }
-
-        .footer-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+        .footer-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #fff; }
         .footer-contact { font-size: 12px; color: #444; margin-bottom: 30px; letter-spacing: 1px; }
         .footer-contact a { color: inherit; text-decoration: none; }
-
         .social-links { display: flex; justify-content: center; gap: 15px; }
         .social-link {
             color: #666;
@@ -84,20 +30,49 @@
             border-radius: 6px;
             transition: 0.3s;
         }
-        .social-link:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+        .social-link:hover { color: #fff; border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.02); }
     </style>
 </head>
 <body>
-
-    <nav class="nav-header">KISHAN SHARMA</nav>
-
-    <div class="container">
-        <a href="viewer.html?folder=project1" class="project-card">
-            <div class="image-container">
-                <img src="projects/project1/render1.jpg" onerror="this.src='https://via.placeholder.com/1000x500/111/333?text=PROJECT+ONE'">
+    <div class="main-canvas">
+        <header class="hero-section">
+            <div class="liquid-glass-card">
+                <div class="avatar-container">
+                    <img src="projects/profile/profile.png" id="profilePic" class="profile-img" 
+                         onerror="this.onerror=null; this.src='projects/profile/profile.jpg';">
+                </div>
+                <h1 class="name-text">Kishan Sharma</h1>
+                <p class="bio-text">3D Artist & Developer. Transforming complex ideas into interactive digital reality.</p>
+                <div class="contact-footer">
+                    <div class="phone-link">9148804719</div>
+                    <div class="email-link">Kishansharma3k@gmail.com</div>
+                </div>
             </div>
-            <div class="project-meta">PROJECT ONE</div>
-        </a>
+        </header>
+
+        <footer class="project-shelf">
+            <div class="shelf-container">
+                <div class="project-card" onclick="openProject('project1')">
+                    <img src="projects/project1/thumb.png" class="card-bg-img" 
+                         onerror="this.onerror=null; this.src='projects/project1/thumb.jpg';">
+                    <div class="card-glass-overlay"></div>
+                    <div class="project-info">
+                        <h3>Project One</h3>
+                        <p>3D Asset / Render</p>
+                    </div>
+                </div>
+
+                <div class="project-card" onclick="openProject('project2')">
+                    <img src="projects/project2/thumb.png" class="card-bg-img" 
+                         onerror="this.onerror=null; this.src='projects/project2/thumb.jpg';">
+                    <div class="card-glass-overlay"></div>
+                    <div class="project-info">
+                        <h3>Project Two</h3>
+                        <p>3D Asset / Render</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <footer class="site-footer">
@@ -112,5 +87,10 @@
         </div>
     </footer>
 
+    <script>
+        function openProject(targetFolder) {
+            window.open(`viewer.html?folder=${targetFolder}`, '_blank');
+        }
+    </script>
 </body>
 </html>
