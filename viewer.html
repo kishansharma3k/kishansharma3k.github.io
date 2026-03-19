@@ -6,7 +6,7 @@
     <title>Project Details | Kishan Sharma</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { margin: 0; background: #050505; color: white; font-family: -apple-system, sans-serif; overflow-y: auto; }
+        body { margin: 0; background: #050505; color: white; font-family: -apple-system, sans-serif; overflow-y: auto; display: flex; flex-direction: column; min-height: 100vh; }
         
         .nav-header {
             position: sticky; top: 0; z-index: 100; padding: 15px 20px;
@@ -16,19 +16,18 @@
         }
         .back-btn { color: #888; text-decoration: none; font-size: 14px; font-weight: bold; }
 
-        /* The Container that keeps images and 3D at the same width */
-        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; }
+        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; flex: 1; }
         .media-item { width: 100%; background: #000; line-height: 0; margin-bottom: 5px; }
         img { width: 100%; height: auto; display: block; }
         
-        /* UPDATED 3D VIEWER: Matches image width and has a fixed height */
+        /* 3D VIEWER: Updated to 16:10 Aspect Ratio */
         .viewer-section { 
             width: 100%; 
-            aspect-ratio: 16 / 9; /* This makes it the same shape as a standard render */
-            max-height: 700px; 
+            aspect-ratio: 16 / 10; 
+            max-height: 800px; 
             background: #000; 
             position: relative; 
-            margin-bottom: 50px;
+            margin-top: 20px;
             border: 1px solid #1a1a1a;
         }
         model-viewer { width: 100%; height: 100%; }
@@ -40,6 +39,18 @@
             border-radius: 8px; cursor: pointer; backdrop-filter: blur(10px);
             font-size: 12px; font-weight: bold;
         }
+
+        /* Footer Section */
+        .site-footer {
+            padding: 60px 20px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            background: #000;
+        }
+        .footer-content { max-width: 600px; margin: 0 auto; }
+        .footer-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; opacity: 0.9; }
+        .footer-contact { font-size: 13px; color: #666; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -51,13 +62,21 @@
     </nav>
 
     <div class="content-stack" id="mediaStack">
-        <div style="text-align:center; padding:40px 20px 20px; color:#444; letter-spacing:3px; font-size:10px;">3D INTERACTIVE VIEW</div>
+        <div style="text-align:center; padding:60px 20px 20px; color:#444; letter-spacing:3px; font-size:10px;">3D INTERACTIVE VIEW</div>
         
         <div class="viewer-section">
             <button class="wireframe-toggle" id="wireBtn">WIREFRAME</button>
             <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral" touch-action="pan-y"></model-viewer>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-name">Kishan Sharma</div>
+            <div class="footer-contact">9148804719 • Kishansharma3k@gmail.com</div>
+            <div style="margin-top: 20px; font-size: 11px; color: #333;">© 2026 DIGITAL PORTFOLIO</div>
+        </div>
+    </footer>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -72,7 +91,6 @@
             const wireModel = `projects/${folder}/model_wire.glb`;
             viewer.src = mainModel;
 
-            // Scanner for images
             const names = ['render', 'uv', 'shot', '1', '2'];
             const exts = ['jpg', 'png', 'JPG', 'PNG'];
 
@@ -87,8 +105,8 @@
                                 const div = document.createElement('div');
                                 div.className = 'media-item';
                                 div.innerHTML = `<img src="${path}">`;
-                                // Insert images BEFORE the 3D viewer section
-                                stack.insertBefore(div, stack.lastElementChild.previousElementSibling.previousElementSibling);
+                                // Insert images BEFORE the 3D viewer heading
+                                stack.insertBefore(div, stack.children[0]);
                             }
                         };
                     }
