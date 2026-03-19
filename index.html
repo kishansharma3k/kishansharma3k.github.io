@@ -47,9 +47,14 @@
             </div>
         </footer>
     </div>
+
     <script>
         function openProject(targetFolder) {
-            window.open(`viewer.html?folder=${targetFolder}`, '_blank');
+            /** * FIX: Changed window.open to window.location.href 
+             * This ensures the project opens in the SAME tab, 
+             * allowing for a smooth ArtStation-style transition.
+             */
+            window.location.href = `viewer.html?folder=${targetFolder}`;
         }
     </script>
 </body>

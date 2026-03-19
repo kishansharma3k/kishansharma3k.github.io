@@ -3,59 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Detail | Kishan Sharma</title>
+    <title>Case Study | Kishan Sharma</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        :root { --bg: #0a0a0a; --glass: rgba(255,255,255,0.03); }
+        body { margin: 0; background: #050505; color: white; font-family: -apple-system, sans-serif; }
         
-        body { 
-            margin: 0; background: var(--bg); color: white; 
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
-            overflow-x: hidden; 
-        }
-
-        /* Nav Bar */
         .nav-header {
-            position: sticky; top: 0; z-index: 100;
-            padding: 15px 5%; background: rgba(10,10,10,0.85);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 100; padding: 15px 20px;
+            background: rgba(5,5,5,0.85); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex; justify-content: space-between; align-items: center;
         }
-        .back-btn { color: #888; text-decoration: none; font-size: 14px; transition: 0.3s; font-weight: 500; }
-        .back-btn:hover { color: #fff; }
+        .back-btn { color: #888; text-decoration: none; font-size: 14px; font-weight: bold; }
 
-        /* Content Stack */
-        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; padding: 10px 0; }
-        
-        .media-item { width: 100%; margin-bottom: 4px; background: #000; }
-        img, video { width: 100%; display: block; height: auto; }
+        /* ArtStation Layout */
+        .content-stack { width: 100%; max-width: 1200px; margin: 0 auto; padding-top: 5px; }
+        .media-item { width: 100%; margin-bottom: 8px; background: #000; }
+        img, video { width: 100%; height: auto; display: block; }
 
-        /* 3D Section */
+        /* 3D Viewer Section */
         .viewer-section { 
-            height: 75vh; width: 100%; margin-top: 20px;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-            border-top: 1px solid #222;
+            height: 85vh; width: 100%; margin-top: 40px;
+            border-top: 1px solid #222; background: #000;
         }
         model-viewer { width: 100%; height: 100%; }
-
-        .section-label { 
-            text-align: center; padding: 60px 0 20px; 
-            color: #444; text-transform: uppercase; letter-spacing: 3px; font-size: 11px;
-        }
+        .label { text-align: center; padding: 50px 0 20px; color: #444; text-transform: uppercase; letter-spacing: 3px; font-size: 12px; }
     </style>
 </head>
 <body>
 
     <nav class="nav-header">
-        <a href="index.html" class="back-btn">← BACK</a>
-        <div id="project-title" style="font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Project View</div>
-        <div style="width: 50px;"></div> </nav>
+        <a href="index.html" class="back-btn">← BACK TO GALLERY</a>
+        <div id="projectName" style="font-weight:bold; letter-spacing:1px;">PROJECT VIEW</div>
+        <div style="width:20px;"></div>
+    </nav>
 
     <div class="content-stack" id="mediaStack">
         </div>
 
-    <div class="section-label">Interactive 3D Model</div>
+    <div class="label">3D Interaction</div>
     <div class="viewer-section">
         <model-viewer id="mv" camera-controls auto-rotate shadow-intensity="1" environment-image="neutral" touch-action="pan-y"></model-viewer>
     </div>
@@ -67,41 +53,23 @@
         const viewer = document.querySelector("#mv");
 
         if (folder) {
-            document.getElementById("project-title").innerText = folder;
+            document.getElementById("projectName").innerText = folder.toUpperCase();
             viewer.src = `projects/${folder}/model.glb`;
 
-            // Function to try loading images with different extensions
-            function loadMedia(index) {
-                const formats = ['jpg', 'png', 'jpeg', 'PNG', 'JPG'];
-                
+            // Try to find up to 10 renders (Checking .jpg and .png)
+            const formats = ['jpg', 'png', 'JPG'];
+            for (let i = 1; i <= 10; i++) {
                 formats.forEach(ext => {
                     const img = new Image();
-                    img.src = `projects/${folder}/render${index}.${ext}`;
-                    img.onload = () => {
+                    img.src = `projects/${folder}/render${i}.${ext}`;
+                    img.onload = function() {
                         const div = document.createElement('div');
                         div.className = 'media-item';
-                        div.innerHTML = `<img src="${img.src}">`;
+                        div.innerHTML = `<img src="${this.src}">`;
                         stack.appendChild(div);
                     };
                 });
             }
-
-            // Check for up to 10 possible render images
-            for(let i=1; i<=10; i++) {
-                loadMedia(i);
-            }
-
-            // Also check for video
-            const video = document.createElement('video');
-            video.src = `projects/${folder}/video.mp4`;
-            video.muted = true; video.loop = true; video.playsinline = true;
-            video.oncanplay = () => {
-                const div = document.createElement('div');
-                div.className = 'media-item';
-                div.appendChild(video);
-                video.play();
-                stack.prepend(div);
-            };
         }
     </script>
 </body>
