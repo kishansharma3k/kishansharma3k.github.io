@@ -5,34 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Sharma | Portfolio</title>
     <style>
-        body { margin: 0; background: #050505; color: white; font-family: -apple-system, sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        .nav-header {
-            position: sticky; top: 0; z-index: 100; padding: 20px;
-            background: rgba(5,5,5,0.8); backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            text-align: center; font-weight: bold; letter-spacing: 2px;
+        /* Base Styles */
+        body { 
+            margin: 0; 
+            background: #050505; 
+            color: white; 
+            font-family: -apple-system, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
         }
 
-        /* RESTORED: Your original project card styling */
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; flex: 1; }
-        
+        /* Nav Header */
+        .nav-header {
+            position: sticky; top: 0; z-index: 100; padding: 25px;
+            background: rgba(5,5,5,0.8); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-align: center; font-weight: bold; letter-spacing: 4px;
+            text-transform: uppercase; font-size: 14px;
+        }
+
+        /* RESTORED: Wide Banner Layout from your Screenshot */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
         .project-card {
             display: block;
-            background: #111;
-            border-radius: 20px;
-            overflow: hidden;
             text-decoration: none;
-            color: white;
-            margin-bottom: 30px;
-            border: 1px solid #222;
-            transition: 0.3s;
+            margin-bottom: 50px;
+            transition: transform 0.3s ease;
         }
-        .project-card:hover { transform: scale(1.01); border-color: #444; }
-        .project-card img { width: 100%; display: block; }
-        .project-info { padding: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: #888; }
 
-        /* FOOTER STYLING */
+        .project-card:hover { transform: scale(1.01); }
+
+        .banner-frame {
+            width: 100%;
+            background: #111;
+            border-radius: 24px; /* Matches the high rounding in your screenshot */
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            line-height: 0;
+        }
+
+        .banner-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .project-label {
+            margin-top: 15px;
+            padding-left: 10px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* FOOTER */
         .site-footer {
             padding: 80px 20px;
             margin-top: 60px;
@@ -40,33 +75,41 @@
             text-align: center;
             background: #000;
         }
-        .footer-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
-        .footer-contact { font-size: 13px; margin-bottom: 25px; }
-        .footer-contact a { color: #666; text-decoration: none; }
-        
-        .social-links { display: flex; justify-content: center; gap: 15px; }
+        .footer-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #fff; }
+        .footer-contact { font-size: 13px; margin-bottom: 30px; }
+        .footer-contact a { color: #555; text-decoration: none; transition: 0.3s; }
+        .footer-contact a:hover { color: #fff; }
+
+        .social-links { display: flex; justify-content: center; gap: 12px; }
         .social-link {
-            color: #888;
+            color: #777;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             letter-spacing: 2px;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px 24px;
+            border-radius: 8px;
             transition: 0.3s;
+            background: rgba(255,255,255,0.02);
         }
-        .social-link:hover { color: #fff; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); }
+        .social-link:hover { 
+            color: #fff; 
+            border-color: rgba(255,255,255,0.3); 
+            background: rgba(255,255,255,0.05);
+        }
     </style>
 </head>
 <body>
 
     <nav class="nav-header">KISHAN SHARMA</nav>
 
-    <div class="container">
+    <div class="main-container">
         <a href="viewer.html?folder=project1" class="project-card">
-            <img src="projects/project1/render1.jpg" onerror="this.src='https://via.placeholder.com/1000x400/111/444?text=Project+Thumbnail'">
-            <div class="project-info">PROJECT ONE</div>
+            <div class="banner-frame">
+                <img src="projects/project1/render1.jpg" onerror="this.src='https://via.placeholder.com/1000x400/111/444?text=Project+Thumbnail'">
+            </div>
+            <div class="project-label">PROJECT ONE</div>
         </a>
     </div>
 
